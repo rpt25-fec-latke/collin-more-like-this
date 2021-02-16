@@ -1,20 +1,21 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 
+
 module.exports = {
-  mode: 'development',
   entry: './src/index.jsx',
-  devServer: {
-    contentBase: './dist',
-    open: true,
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: 'babel-loader',
+      },
+    ],
   },
-  plugins: [
-    new HtmlWebpackPlugin({
-      title: 'Development',
-    })
-  ],
+  plugins: [new HtmlWebpackPlugin({})],
   output: {
-    filename: 'bundle.js',
+    filename: '[name].bundle.js',
     path: path.resolve(__dirname, 'dist'),
-  }
+  },
 };
