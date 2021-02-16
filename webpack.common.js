@@ -1,21 +1,33 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 
-
 module.exports = {
-  entry: './src/index.jsx',
+  entry: './client/src/index.jsx',
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         loader: 'babel-loader',
       },
     ],
   },
-  plugins: [new HtmlWebpackPlugin({})],
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: path.resolve(
+        __dirname,
+        'client',
+        'public',
+        'index.html',
+      ),
+      title: 'Steam',
+    }),
+  ],
+  resolve: {
+    extensions: ['.js', '.jsx'],
+  },
   output: {
-    filename: '[name].bundle.js',
-    path: path.resolve(__dirname, 'dist'),
+    filename: 'moreLikeBundle.js',
+    path: path.resolve(__dirname, 'client', 'dist'),
   },
 };
