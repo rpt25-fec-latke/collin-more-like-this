@@ -1,3 +1,4 @@
+const path = require('path');
 const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
@@ -7,6 +8,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors());
 app.use(morgan('dev'));
+app.use(express.static(path.resolve('client', 'dist')));
 
 app.get('/morelikethis', (req, res) => {
   res.json({ bacon: 'bacon' });

@@ -41,6 +41,7 @@
     "eslint-plugin-react": "^7.22.0",
     "eslint-plugin-react-hooks": "^1.7.0",
     "postcss-loader": "^5.0.0",
+    "react-swipeable": "^6.0.1",
     "rucksack-css": "^1.0.2"
   }
 }
