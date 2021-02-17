@@ -79,7 +79,6 @@ const Button = styled.div`
   float: right;
   width: 33px;
   height: 12px;
-  right: 20px;
   background-color: rgba( 103, 193, 245, 0.2 );
   border-radius: 1px;
   color: #67c1f5;
