@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import ImageCarousel from './ImageCarousel';
 import Slider from './Slider';
@@ -99,20 +99,25 @@ const Title = styled.h2`
 `;
 
 const MoreLikeThis = ({ apiRoute }) => {
-  // useEffect(() => {
-  //   const abortController = new AbortController();
-  //   const { signal } = abortController;
-  //   fetch(apiRoute, { signal })
-  //     .then((res) => res.json())
-  //     .then(({ bacon }) => {
-  //       console.log(bacon);
-  //     })
-  //     .catch((err) => console.log(err));
+  const [gameId, setGameId] = useState(1);
+  const queryId = window.location.search.slice(4);
 
-  //   return () => {
-  //     abortController.abort();
-  //   };
-  // }, []);
+  useEffect(() => {
+    const currentId = queryId || gameId;
+    setGameId(currentId);
+    const abortController = new AbortController();
+    const { signal } = abortController;
+    fetch(`${apiRoute}?id=${gameId}`, { signal })
+      .then((res) => res.json())
+      .then(({ data }) => {
+        console.log(data);
+      })
+      .catch((err) => console.log(err));
+
+    return () => {
+      abortController.abort();
+    };
+  }, []);
 
   return (
     <Container>
