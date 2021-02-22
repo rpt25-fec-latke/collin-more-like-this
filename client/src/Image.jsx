@@ -47,7 +47,7 @@ const Image = ({ currentGame }) => {
         {currentGame.gameTitle}
         {' '}
       </GameTitle>
-      <Price>$15.99</Price>
+      <Price>{`$${currentGame.price}`}</Price>
     </Container>
   );
 };
