@@ -11,6 +11,7 @@ const Container = styled.div`
   height: 190px;
   margin-top: 40px;
   margin-bottom: 16px;
+
 `;
 
 const Header = styled.div`
@@ -102,6 +103,7 @@ const Title = styled.h2`
 const MoreLikeThis = ({ apiRoute }) => {
   const [gameId, setGameId] = useState(1);
   const [carouselData, setCarouselData] = useState([]);
+  const [modalDisplay, setModalDisplay] = useState(false);
 
   useEffect(() => {
     const queryId = window.location.search.slice(4);
@@ -113,7 +115,7 @@ const MoreLikeThis = ({ apiRoute }) => {
       .then((res) => res.json())
       .then(({ data }) => {
         console.log(data);
-        setCarouselData(data);
+        setCarouselData(data.slice(0, 1));
       })
       .catch((err) => console.log(err));
 
@@ -135,7 +137,11 @@ const MoreLikeThis = ({ apiRoute }) => {
           </Header>
           <Liner src="https://store.akamai.steamstatic.com/public/images/v6/maincol_gradient_rule.png" />
         </HeaderWrapper>
-        <ImageCarousel carouselData={carouselData} />
+        <ImageCarousel
+          modalDisplay={modalDisplay}
+          setModalDisplay={setModalDisplay}
+          carouselData={carouselData}
+        />
         <Slider />
       </Wrapper>
     </Container>

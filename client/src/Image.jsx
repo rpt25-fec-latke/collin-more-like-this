@@ -1,6 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import Modal from './Modal';
+
+const Photo = styled.img`
+  width: 171px;
+  height: 64px;
+`;
+
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -11,11 +18,12 @@ const Container = styled.div`
   margin-right: 2px;
   margin-bottom: 10px;
   border: 1px solid rgba( 0, 0, 0, 0 );
-`;
+    &:hover {
+      text-decoration: none;
+      border: 1px solid rgba( 103, 193, 245, 0.5 );
+      cursor: pointer;
+    }
 
-const Photo = styled.img`
-  width: 171px;
-  height: 64px;
 `;
 
 const GameTitle = styled.h5`
@@ -39,15 +47,25 @@ const Price = styled.div`
   letter-spacing: normal;
 `;
 
-const Image = ({ currentGame }) => {
+const Image = ({ currentGame, setModalDisplay, modalDisplay }) => {
   return (
-    <Container id="scroll">
+    <Container
+      onMouseEnter={() => {
+        console.log('hi there hoverboy');
+        setModalDisplay(true);
+      }}
+      onMouseLeave={() => {
+        console.log('bye bye hoverboy');
+        setModalDisplay(false);
+      }}
+    >
       <Photo src={currentGame.photos[0]} />
       <GameTitle>
         {currentGame.gameTitle}
         {' '}
       </GameTitle>
       <Price>{`$${currentGame.price}`}</Price>
+      <Modal modalDisplay={modalDisplay} />
     </Container>
   );
 };
