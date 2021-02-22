@@ -13,6 +13,7 @@ module.exports = (relatedGames, overallReviews, relatedMetaData, price) => {
       overallCount: overallReviews[current].reviewStats.totalReviewCount,
       gameTitle: relatedMetaData[current][4][0],
       releaseDate: relatedMetaData[current][4][5],
+      price: price[current],
     };
     result.push(dataObj);
     current++;
