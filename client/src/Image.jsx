@@ -39,11 +39,14 @@ const Price = styled.div`
   letter-spacing: normal;
 `;
 
-const Image = () => {
+const Image = ({ currentGame }) => {
   return (
     <Container id="scroll">
-      <Photo src="https://cdn.cloudflare.steamstatic.com/steam/apps/271590/capsule_184x69.jpg?t=1592866696" />
-      <GameTitle>Grand Theft Auto: San Andreas </GameTitle>
+      <Photo src={currentGame.photos[0]} />
+      <GameTitle>
+        {currentGame.gameTitle}
+        {' '}
+      </GameTitle>
       <Price>$15.99</Price>
     </Container>
   );

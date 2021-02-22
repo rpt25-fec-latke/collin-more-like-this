@@ -23,21 +23,19 @@ const Wrapper = styled.div`
   white-space: nowrap;
 `;
 
-const ImageCarousel = () => {
-  useEffect(() => {
-    setTimeout(() => {
-      document.getElementById('scroll').click();
-      document.getElementById('scroll').scrollRight = 100;
-    }, 5000);
-  }, []);
+const ImageCarousel = ({ carouselData }) => {
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     document.getElementById('scroll').click();
+  //     document.getElementById('scroll').scrollRight = 100;
+  //   }, 5000);
+  // }, []);
   return (
     <Container>
       <Wrapper>
-        <Image />
-        <Image />
-        <Image />
-        <Image />
-        <Image />
+        {carouselData.map((currentGame, i) => (
+          <Image currentGame={currentGame} key={i} />
+        ))}
       </Wrapper>
     </Container>
   );

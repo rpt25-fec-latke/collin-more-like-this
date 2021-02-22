@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+
 import ImageCarousel from './ImageCarousel';
 import Slider from './Slider';
 
@@ -100,9 +101,10 @@ const Title = styled.h2`
 
 const MoreLikeThis = ({ apiRoute }) => {
   const [gameId, setGameId] = useState(1);
-  const queryId = window.location.search.slice(4);
+  const [carouselData, setCarouselData] = useState([]);
 
   useEffect(() => {
+    const queryId = window.location.search.slice(4);
     const currentId = queryId || gameId;
     setGameId(currentId);
     const abortController = new AbortController();
@@ -111,13 +113,14 @@ const MoreLikeThis = ({ apiRoute }) => {
       .then((res) => res.json())
       .then(({ data }) => {
         console.log(data);
+        setCarouselData(data);
       })
       .catch((err) => console.log(err));
 
     return () => {
       abortController.abort();
     };
-  }, []);
+  }, [gameId]);
 
   return (
     <Container>
@@ -132,7 +135,7 @@ const MoreLikeThis = ({ apiRoute }) => {
           </Header>
           <Liner src="https://store.akamai.steamstatic.com/public/images/v6/maincol_gradient_rule.png" />
         </HeaderWrapper>
-        <ImageCarousel />
+        <ImageCarousel carouselData={carouselData} />
         <Slider />
       </Wrapper>
     </Container>
