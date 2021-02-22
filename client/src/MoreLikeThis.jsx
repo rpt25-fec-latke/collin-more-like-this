@@ -1,39 +1,13 @@
-import React, { useEffect, useReducer } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
-const SlideContainer = styled.div`
-  width: 100%;
-`;
-
-const Slider = styled.input`
-  -webkit-appearance: none;
-  appearance: none;
-  width: 100%;
-  height: 25px;
-  background: #d3d3d3;
-  outline: none;
-  opacity: 0.7;
-  -webkit-transition: .2s;
-  transition: opacity .2s;
-
-  &:hover {
-    opacity: 1; /* Fully shown on mouse-over */
-  }
-
-  ::-webkit-slider-thumb {
-  -webkit-appearance: none; /* Override default look */
-  appearance: none;
-  width: 25px; /* Set a specific slider handle width */
-  height: 25px; /* Slider handle height */
-  background: #4CAF50; /* Green background */
-  cursor: pointer; /* Cursor on hover */
-  }
-
-`;
+import ImageCarousel from './ImageCarousel';
+import Slider from './Slider';
 
 const Container = styled.div`
   display: flex;
-  width: 616px;
+  /* justify-content: flex-start; */
+  width: 50%;
   height: 190px;
   margin-top: 40px;
   margin-bottom: 16px;
@@ -62,21 +36,28 @@ const Right = styled.div`
   margin-right: 3px;
 `;
 
-const Wrapper = styled.div`
+const HeaderWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   height: 57px;
+  margin-bottom: 5px;
+`;
+
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const Spacer = styled.div`
+  width: 65%;
 `;
 
 const Liner = styled.img`
-  /* background-image: url('https://store.akamai.steamstatic.com/public/images/v6/maincol_gradient_rule.png');
-  background-repeat: no-repeat;
-  background-position: bottom-left; */
+  margin-top: 10px;
 `;
 
 const Button = styled.div`
-  float: right;
   width: 33px;
   height: 12px;
   background-color: rgba( 103, 193, 245, 0.2 );
@@ -119,31 +100,43 @@ const Title = styled.h2`
 `;
 
 const MoreLikeThis = ({ apiRoute }) => {
-  // useEffect(() => {
-  //   const abortController = new AbortController();
-  //   const { signal } = abortController;
-  //   fetch(apiRoute, { signal })
-  //     .then((res) => res.json())
-  //     .then(({ bacon }) => {
-  //       console.log(bacon);
-  //     })
-  //     .catch((err) => console.log(err));
+  const [gameId, setGameId] = useState(1);
+  const [carouselData, setCarouselData] = useState([]);
 
-  //   return () => {
-  //     abortController.abort();
-  //   };
-  // }, []);
+  useEffect(() => {
+    const queryId = window.location.search.slice(4);
+    const currentId = queryId || gameId;
+    setGameId(currentId);
+    const abortController = new AbortController();
+    const { signal } = abortController;
+    fetch(`${apiRoute}?id=${gameId}`, { signal })
+      .then((res) => res.json())
+      .then(({ data }) => {
+        console.log(data);
+        setCarouselData(data);
+      })
+      .catch((err) => console.log(err));
+
+    return () => {
+      abortController.abort();
+    };
+  }, [gameId]);
 
   return (
     <Container>
       <Wrapper>
-        <Header>
-          <Title>More Like This</Title>
-          <Right>
-            <Button>See all</Button>
-          </Right>
-        </Header>
-        <Liner src="https://store.akamai.steamstatic.com/public/images/v6/maincol_gradient_rule.png" />
+        <HeaderWrapper>
+          <Header>
+            <Title>More Like This</Title>
+            <Spacer />
+            <Right>
+              <Button>See all</Button>
+            </Right>
+          </Header>
+          <Liner src="https://store.akamai.steamstatic.com/public/images/v6/maincol_gradient_rule.png" />
+        </HeaderWrapper>
+        <ImageCarousel carouselData={carouselData} />
+        <Slider />
       </Wrapper>
     </Container>
   );

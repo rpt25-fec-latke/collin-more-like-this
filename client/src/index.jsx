@@ -15,6 +15,11 @@ const GlobalStyle = createGlobalStyle`
     background: linear-gradient(to right, #2d4e61, #1b2839);
     overflow-x: hidden;
   }
+  #moreLikeThis {
+    display: flex;
+    justify-content: center;
+    /* width: 616px; */
+  }
 `;
 
 let apiRoute;
