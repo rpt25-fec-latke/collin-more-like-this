@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
 const MoreLikeModalContainer = styled.div`
-  display: ${({ modalDisplay }) => { return modalDisplay ? 'block' : 'none'; }};
+  display: ${({ modalDisplay, id }) => { return modalDisplay && id <= 2 ? 'block' : 'none'; }};
   position: absolute;
+  top: 15%;
   z-index: 5;
-  padding: 5px 12px 0 12px;
+  margin-left: ${({ id }) => { return id <= 2 ? '180px' : '-100px'; }};
+  padding: 5px 12px 0px 12px;
   font-family: Arial, Helvetica, sans-serif;
   color: #c6d4df;
   font-size: 12px;
@@ -57,7 +59,8 @@ const MoreLikeModalPictures = styled.div`
 `;
 
 const MoreLikeModalPicture = styled.div`
-  background-image: url("https://cdn.cloudflare.steamstatic.com/steam/apps/1030840/ss_f531c551d9794deafc1e45421b70e8d4c254aaca.600x338.jpg?t=1606265718");
+/* url("${(props) => props.backgroundImage}"); */
+  background-image: url("${({ modalImage }) => modalImage}");
   position: absolute;
   width: 100%;
   height: 100%;
@@ -79,7 +82,9 @@ const MoreLikeModalReviewSummary = styled.div`
 `;
 
 const MoreLikeModalTagsWrapper = styled.div`
+  white-space: nowrap;
   overflow: hidden;
+  text-overflow: ellipsis;
   height: 19px;
   margin-top: 2px;
 `;
@@ -113,36 +118,67 @@ const MoreLikeModalPointer = styled.div`
   top: 48px;
 `;
 
-const Modal = ({ modalDisplay }) => (
-  <MoreLikeModalContainer modalDisplay={modalDisplay}>
-    <MoreLikeModalWrapper>
-      <MoreLikeModalContent>
-        <MoreLikeModalHeader>Mafia: Definitive Edition</MoreLikeModalHeader>
-        <MoreLikeModalRelease>
-          <span>Released: Sep 24, 2020</span>
-          <div />
-        </MoreLikeModalRelease>
-        <MoreLikeModalPictures>
-          <MoreLikeModalPicture />
-        </MoreLikeModalPictures>
-        <MoreLikeModalInfo>
-          <MoreLikeModalReviewSummary>
-            <div>Overall user reviews:</div>
-            <span style={{ color: '#66C0F4' }}>Very Positive</span>
-            (19,826 reviews)
-          </MoreLikeModalReviewSummary>
-          <div stlye={{ clear: 'left' }} />
-        </MoreLikeModalInfo>
-        <MoreLikeModalInfo>
-          User tags:
-          <MoreLikeModalTagsWrapper>
-            <MoreLikeModalTag>Action</MoreLikeModalTag>
-          </MoreLikeModalTagsWrapper>
-        </MoreLikeModalInfo>
-      </MoreLikeModalContent>
-    </MoreLikeModalWrapper>
-    <MoreLikeModalPointer />
-  </MoreLikeModalContainer>
-);
+const Modal = ({
+  currentGame,
+  modalDisplay,
+  id,
+  startPicAutomation,
+  autoIterate,
+  setAutoIterate,
+}) => {
+  const [modalImage, setModalImage] = useState('');
+
+  useEffect(() => {
+    setModalImage(currentGame.photos[autoIterate]);
+    let picTraverse;
+    if (startPicAutomation) {
+      picTraverse = setTimeout(() => {
+        setModalImage(currentGame.photos[autoIterate]);
+        setAutoIterate(autoIterate + 1);
+      }, 2000);
+    }
+    if (currentGame.photos[autoIterate] === undefined) {
+      setModalImage(currentGame.photos[1]);
+      clearTimeout(picTraverse);
+    }
+    return () => {
+      clearTimeout(picTraverse);
+    };
+  }, [startPicAutomation, autoIterate]);
+
+  return (
+    <MoreLikeModalContainer id={id} modalDisplay={modalDisplay}>
+      <MoreLikeModalWrapper>
+        <MoreLikeModalContent>
+          <MoreLikeModalHeader>{currentGame.gameTitle}</MoreLikeModalHeader>
+          <MoreLikeModalRelease>
+            <span>{currentGame.releaseDate}</span>
+            <div />
+          </MoreLikeModalRelease>
+          <MoreLikeModalPictures>
+            <MoreLikeModalPicture modalImage={modalImage} />
+          </MoreLikeModalPictures>
+          <MoreLikeModalInfo>
+            <MoreLikeModalReviewSummary>
+              <div>Overall user reviews:</div>
+              <span style={{ color: '#66C0F4' }}>{currentGame.overall}</span>
+              {` (${currentGame.overallCount} reviews)`}
+            </MoreLikeModalReviewSummary>
+            <div stlye={{ clear: 'left' }} />
+          </MoreLikeModalInfo>
+          <MoreLikeModalInfo>
+            User tags:
+            <MoreLikeModalTagsWrapper>
+              {currentGame.tags.map((tag, i) => (
+                <MoreLikeModalTag key={i}>{tag}</MoreLikeModalTag>
+              ))}
+            </MoreLikeModalTagsWrapper>
+          </MoreLikeModalInfo>
+        </MoreLikeModalContent>
+      </MoreLikeModalWrapper>
+      <MoreLikeModalPointer />
+    </MoreLikeModalContainer>
+  );
+};
 
 export default Modal;

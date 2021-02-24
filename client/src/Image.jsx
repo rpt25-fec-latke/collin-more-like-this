@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 import Modal from './Modal';
@@ -47,15 +47,20 @@ const Price = styled.div`
   letter-spacing: normal;
 `;
 
-const Image = ({ currentGame, setModalDisplay, modalDisplay }) => {
+const Image = ({ currentGame, id }) => {
+  const [modalDisplay, setModalDisplay] = useState(false);
+  // const [stopPicAutomation, setStopPicAuto] = useState(false);
+  const [startPicAutomation, setStartPicAuto] = useState(false);
+  const [autoIterate, setAutoIterate] = useState(1);
+
   return (
     <Container
       onMouseEnter={() => {
-        console.log('hi there hoverboy');
+        setAutoIterate(1);
+        setStartPicAuto(true);
         setModalDisplay(true);
       }}
       onMouseLeave={() => {
-        console.log('bye bye hoverboy');
         setModalDisplay(false);
       }}
     >
@@ -65,7 +70,14 @@ const Image = ({ currentGame, setModalDisplay, modalDisplay }) => {
         {' '}
       </GameTitle>
       <Price>{`$${currentGame.price}`}</Price>
-      <Modal modalDisplay={modalDisplay} />
+      <Modal
+        id={id}
+        modalDisplay={modalDisplay}
+        currentGame={currentGame}
+        startPicAutomation={startPicAutomation}
+        autoIterate={autoIterate}
+        setAutoIterate={setAutoIterate}
+      />
     </Container>
   );
 };

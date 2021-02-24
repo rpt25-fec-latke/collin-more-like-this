@@ -23,7 +23,7 @@ const ImageCarouselWrapper = styled.div`
   white-space: nowrap;
 `;
 
-const ImageCarousel = ({ carouselData, setModalDisplay, modalDisplay }) => {
+const ImageCarousel = ({ carouselData }) => {
   // useEffect(() => {
   //   setTimeout(() => {
   //     document.getElementById('scroll').click();
@@ -36,9 +36,8 @@ const ImageCarousel = ({ carouselData, setModalDisplay, modalDisplay }) => {
         {carouselData.map((currentGame, i) => (
           <Image
             currentGame={currentGame}
-            modalDisplay={modalDisplay}
-            setModalDisplay={setModalDisplay}
             key={i}
+            id={i}
           />
         ))}
       </ImageCarouselWrapper>

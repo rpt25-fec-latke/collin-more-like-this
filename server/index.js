@@ -66,7 +66,7 @@ app.get('/morelikethis', async (req, res) => {
     res.sendStatus(500);
   }
 });
-
+console.log(process.env.PORT);
 const PORT = process.env.PORT || 3002;
 app.listen(PORT, () => {
   console.log(`service running on port ${PORT}`);
