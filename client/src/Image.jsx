@@ -1,5 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
+
+import Modal from './Modal';
+
+const Photo = styled.img`
+  width: 171px;
+  height: 64px;
+`;
 
 const Container = styled.div`
   display: flex;
@@ -11,11 +18,12 @@ const Container = styled.div`
   margin-right: 2px;
   margin-bottom: 10px;
   border: 1px solid rgba( 0, 0, 0, 0 );
-`;
+    &:hover {
+      text-decoration: none;
+      border: 1px solid rgba( 103, 193, 245, 0.5 );
+      cursor: pointer;
+    }
 
-const Photo = styled.img`
-  width: 171px;
-  height: 64px;
 `;
 
 const GameTitle = styled.h5`
@@ -39,15 +47,39 @@ const Price = styled.div`
   letter-spacing: normal;
 `;
 
-const Image = ({ currentGame }) => {
+const Image = ({ currentGame, id }) => {
+  const [modalDisplay, setModalDisplay] = useState(false);
+  const [modalCancel, setModalCancel] = useState(false);
+  const [startPicAutomation, setStartPicAuto] = useState(false);
+  const [autoIterate, setAutoIterate] = useState(1);
+
   return (
-    <Container id="scroll">
+    <Container
+      onMouseEnter={() => {
+        setAutoIterate(1);
+        setStartPicAuto(true);
+        setModalDisplay(true);
+      }}
+      onMouseLeave={() => {
+        setModalCancel(true);
+        setModalDisplay(false);
+      }}
+    >
       <Photo src={currentGame.photos[0]} />
       <GameTitle>
         {currentGame.gameTitle}
         {' '}
       </GameTitle>
       <Price>{`$${currentGame.price}`}</Price>
+      <Modal
+        id={id}
+        modalDisplay={modalDisplay}
+        currentGame={currentGame}
+        startPicAutomation={startPicAutomation}
+        autoIterate={autoIterate}
+        setAutoIterate={setAutoIterate}
+        modalCancel={modalCancel}
+      />
     </Container>
   );
 };

@@ -4,16 +4,16 @@ import styled from 'styled-components';
 import ImageCarousel from './ImageCarousel';
 import Slider from './Slider';
 
-const Container = styled.div`
+const MoreLikeContainer = styled.div`
   display: flex;
-  /* justify-content: flex-start; */
-  width: 50%;
+  width: 945px;
   height: 190px;
   margin-top: 40px;
   margin-bottom: 16px;
+
 `;
 
-const Header = styled.div`
+const MoreLikeHeader = styled.div`
   display: flex;
   justify-content: space-between;
   width: 616px;
@@ -31,7 +31,7 @@ const Header = styled.div`
 
 `;
 
-const Right = styled.div`
+const MoreLikeRightSide = styled.div`
   align-self: flex-end;
   margin-right: 3px;
 `;
@@ -44,20 +44,20 @@ const HeaderWrapper = styled.div`
   margin-bottom: 5px;
 `;
 
-const Wrapper = styled.div`
+const MoreLikeWrapper = styled.div`
   display: flex;
   flex-direction: column;
 `;
 
-const Spacer = styled.div`
+const MoreLikeSpacer = styled.div`
   width: 65%;
 `;
 
-const Liner = styled.img`
+const MoreLikeLiner = styled.img`
   margin-top: 10px;
 `;
 
-const Button = styled.div`
+const MoreLikeButton = styled.div`
   width: 33px;
   height: 12px;
   background-color: rgba( 103, 193, 245, 0.2 );
@@ -81,7 +81,7 @@ const Button = styled.div`
   }
 `;
 
-const Title = styled.h2`
+const MoreLikeTitle = styled.h2`
   display: block;
   font-family: "Motiva Sans", Sans-serif;
   font-size: 14px;
@@ -123,22 +123,22 @@ const MoreLikeThis = ({ apiRoute }) => {
   }, [gameId]);
 
   return (
-    <Container>
-      <Wrapper>
+    <MoreLikeContainer>
+      <MoreLikeWrapper>
         <HeaderWrapper>
-          <Header>
-            <Title>More Like This</Title>
-            <Spacer />
-            <Right>
-              <Button>See all</Button>
-            </Right>
-          </Header>
-          <Liner src="https://store.akamai.steamstatic.com/public/images/v6/maincol_gradient_rule.png" />
+          <MoreLikeHeader>
+            <MoreLikeTitle>More Like This</MoreLikeTitle>
+            <MoreLikeSpacer />
+            <MoreLikeRightSide>
+              <MoreLikeButton>See all</MoreLikeButton>
+            </MoreLikeRightSide>
+          </MoreLikeHeader>
+          <MoreLikeLiner src="https://store.akamai.steamstatic.com/public/images/v6/maincol_gradient_rule.png" />
         </HeaderWrapper>
         <ImageCarousel carouselData={carouselData} />
         <Slider />
-      </Wrapper>
-    </Container>
+      </MoreLikeWrapper>
+    </MoreLikeContainer>
   );
 };
 

@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import Image from './Image';
 
-const Container = styled.div`
+const ImageCarouselContainer = styled.div`
   display: flex;
   height: 132px;
   width: 616px;
@@ -16,7 +16,7 @@ const Container = styled.div`
   }
 `;
 
-const Wrapper = styled.div`
+const ImageCarouselWrapper = styled.div`
   display: flex;
   vertical-align: top;
   width: auto;
@@ -31,13 +31,17 @@ const ImageCarousel = ({ carouselData }) => {
   //   }, 5000);
   // }, []);
   return (
-    <Container>
-      <Wrapper>
+    <ImageCarouselContainer>
+      <ImageCarouselWrapper>
         {carouselData.map((currentGame, i) => (
-          <Image currentGame={currentGame} key={i} />
+          <Image
+            currentGame={currentGame}
+            key={i}
+            id={i}
+          />
         ))}
-      </Wrapper>
-    </Container>
+      </ImageCarouselWrapper>
+    </ImageCarouselContainer>
   );
 };
 
