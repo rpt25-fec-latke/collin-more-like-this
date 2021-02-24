@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
 const MoreLikeModalContainer = styled.div`
-  display: ${({ modalDisplay, id }) => { return modalDisplay && id <= 2 ? 'block' : 'none'; }};
+  display: ${({ modalDisplay, hoverCount, id }) => { return modalDisplay && (id <= 2 && hoverCount === 0) ? 'block' : 'none'; }};
   position: absolute;
   top: 15%;
   z-index: 5;
@@ -125,9 +125,16 @@ const Modal = ({
   startPicAutomation,
   autoIterate,
   setAutoIterate,
+  modalCancel,
 }) => {
   const [modalImage, setModalImage] = useState('');
+  const [hoverCount, setHoverCount] = useState(0);
 
+  useEffect(() => {
+    if (modalCancel) {
+      setHoverCount(1);
+    }
+  }, [modalCancel]);
   useEffect(() => {
     setModalImage(currentGame.photos[autoIterate]);
     let picTraverse;
@@ -135,7 +142,7 @@ const Modal = ({
       picTraverse = setTimeout(() => {
         setModalImage(currentGame.photos[autoIterate]);
         setAutoIterate(autoIterate + 1);
-      }, 2000);
+      }, 1000);
     }
     if (currentGame.photos[autoIterate] === undefined) {
       setModalImage(currentGame.photos[1]);
@@ -147,7 +154,7 @@ const Modal = ({
   }, [startPicAutomation, autoIterate]);
 
   return (
-    <MoreLikeModalContainer id={id} modalDisplay={modalDisplay}>
+    <MoreLikeModalContainer id={id} modalDisplay={modalDisplay} hoverCount={hoverCount}>
       <MoreLikeModalWrapper>
         <MoreLikeModalContent>
           <MoreLikeModalHeader>{currentGame.gameTitle}</MoreLikeModalHeader>

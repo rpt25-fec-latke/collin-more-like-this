@@ -49,7 +49,7 @@ const Price = styled.div`
 
 const Image = ({ currentGame, id }) => {
   const [modalDisplay, setModalDisplay] = useState(false);
-  // const [stopPicAutomation, setStopPicAuto] = useState(false);
+  const [modalCancel, setModalCancel] = useState(false);
   const [startPicAutomation, setStartPicAuto] = useState(false);
   const [autoIterate, setAutoIterate] = useState(1);
 
@@ -61,6 +61,7 @@ const Image = ({ currentGame, id }) => {
         setModalDisplay(true);
       }}
       onMouseLeave={() => {
+        setModalCancel(true);
         setModalDisplay(false);
       }}
     >
@@ -77,6 +78,7 @@ const Image = ({ currentGame, id }) => {
         startPicAutomation={startPicAutomation}
         autoIterate={autoIterate}
         setAutoIterate={setAutoIterate}
+        modalCancel={modalCancel}
       />
     </Container>
   );
