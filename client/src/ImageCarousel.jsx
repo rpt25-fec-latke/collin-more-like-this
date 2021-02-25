@@ -24,6 +24,7 @@ const ImageCarouselWrapper = styled.div`
 `;
 
 const ImageCarousel = ({ carouselData }) => {
+  // slider functionality start if time
   // useEffect(() => {
   //   setTimeout(() => {
   //     document.getElementById('scroll').click();
