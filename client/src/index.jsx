@@ -21,12 +21,12 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
-let apiRoute;
-if (process.env.NODE_ENV !== 'production') {
-  apiRoute = 'http://localhost:3002/morelikethis';
-} else {
-  apiRoute = '/morelikethis';
-}
+const apiRoute = '/morelikethis';
+// if (process.env.NODE_ENV !== 'production') {
+//   apiRoute = 'http://localhost:3002/morelikethis';
+// } else {
+//   apiRoute = '/morelikethis';
+// }
 
 render(
   <>
