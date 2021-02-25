@@ -1,4 +1,4 @@
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+// const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 
 module.exports = {
@@ -12,17 +12,17 @@ module.exports = {
       },
     ],
   },
-  plugins: [
-    new HtmlWebpackPlugin({
-      template: path.resolve(
-        __dirname,
-        'client',
-        'public',
-        'index.html',
-      ),
-      title: 'Steam',
-    }),
-  ],
+  // plugins: [
+  //   new HtmlWebpackPlugin({
+  //     template: path.resolve(
+  //       __dirname,
+  //       'client',
+  //       'public',
+  //       'index.html',
+  //     ),
+  //     title: 'Steam',
+  //   }),
+  // ],
   resolve: {
     extensions: ['.js', '.jsx'],
   },

@@ -12,7 +12,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors());
 app.use(morgan('dev'));
-app.use(express.static(path.resolve('client', 'dist')));
+app.use(express.static(path.resolve('client', 'public')));
 
 const priceFetcher = async (relatedGames) => {
   const result = [];
