@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
-import ImageCarousel from '../ImageCarousel/ImageCarousel';
-import Slider from '../Slider/Slider';
+import ImageCarousel from './ImageCarousel';
+import Slider from './Slider';
 
 const MoreLikeContainer = styled.div`
   display: flex;
