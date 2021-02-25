@@ -56,6 +56,7 @@ app.get('/morelikethis', async (req, res) => {
   try {
     const { data: { relatedGames } } = await
     axios.get(`http://3.137.75.100:3008/game_info/related?id=${req.query.id}`);
+
     const prices = await priceFetcher(relatedGames);
     const overallReviews = await getRelatedReview(relatedGames);
     const relatedMetaData = await getRelatedMetaData(relatedGames);
