@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import moment from 'moment';
 
 const MoreLikeModalContainer = styled.div`
   display: ${({ modalDisplay, hoverCount, id }) => { return modalDisplay && (id <= 2 && hoverCount === 0) ? 'block' : 'none'; }};
   position: absolute;
-  top: 15%;
+  top: 1825px;
   z-index: 5;
   margin-left: ${({ id }) => { return id <= 2 ? '180px' : '-100px'; }};
   padding: 5px 12px 0px 12px;
@@ -159,7 +160,7 @@ const Modal = ({
         <MoreLikeModalContent>
           <MoreLikeModalHeader>{currentGame.gameTitle}</MoreLikeModalHeader>
           <MoreLikeModalRelease>
-            <span>{currentGame.releaseDate}</span>
+            <span>{moment(new Date(currentGame.releaseDate)).format('MMM D, YYYY')}</span>
             <div />
           </MoreLikeModalRelease>
           <MoreLikeModalPictures>
