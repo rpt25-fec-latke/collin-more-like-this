@@ -1,6 +1,8 @@
 const { merge } = require('webpack-merge');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const S3Plugin = require('webpack-s3-plugin');
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+const webpack = require('webpack');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 require('dotenv').config();
 const common = require('./webpack.common');
 
@@ -21,9 +23,6 @@ module.exports = merge(common, {
     ],
   },
   plugins: [
-    new MiniCssExtractPlugin({
-      filename: '[name].css',
-    }),
     new S3Plugin({
       s3Options: {
         exclude: /.*\.(html|txt)/,
@@ -35,5 +34,18 @@ module.exports = merge(common, {
         Bucket: 'steam-bundles',
       },
     }),
+    new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+    new UglifyJSPlugin(),
   ],
+  optimization: {
+    splitChunks: {
+      cacheGroups: {
+        vendors: {
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendor',
+          chunks: 'all',
+        },
+      },
+    },
+  },
 });

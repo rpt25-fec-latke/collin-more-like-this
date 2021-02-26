@@ -2,6 +2,7 @@ const path = require('path');
 const express = require('express');
 const axios = require('axios');
 const cors = require('cors');
+const compression = require('compression');
 const morgan = require('morgan');
 
 const { getGamePrice } = require('./db');
@@ -10,6 +11,7 @@ const organizeData = require('./utils');
 const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(compression());
 app.use(cors());
 app.use(morgan('dev'));
 app.use(express.static(path.resolve('client', 'public')));
