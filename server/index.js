@@ -14,7 +14,7 @@ app.use(express.json());
 app.use(compression());
 app.use(cors());
 app.use(morgan('dev'));
-app.use(express.static(path.resolve('client', 'public')));
+app.use(express.static(path.resolve('client', 'dist')));
 
 const priceFetcher = async (relatedGames) => {
   const result = [];

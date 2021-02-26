@@ -1,4 +1,5 @@
 const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   entry: './client/src/index.jsx',
@@ -11,11 +12,22 @@ module.exports = {
       },
     ],
   },
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: path.resolve(
+        __dirname,
+        'client',
+        'public',
+        'index.html',
+      ),
+      title: 'Steam',
+    }),
+  ],
   resolve: {
     extensions: ['.js', '.jsx'],
   },
   output: {
-    filename: '[name].moreLikeBundle.js',
+    filename: 'moreLikeBundle.js',
     path: path.resolve(__dirname, 'client', 'dist'),
   },
 };

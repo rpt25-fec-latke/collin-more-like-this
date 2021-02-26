@@ -7,7 +7,8 @@ require('dotenv').config();
 const common = require('./webpack.common');
 
 module.exports = merge(common, {
-  mode: 'production',
+  // proxy only working with one production build!!
+  mode: 'development',
   module: {
     rules: [
       {
@@ -37,15 +38,4 @@ module.exports = merge(common, {
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
     new UglifyJSPlugin(),
   ],
-  optimization: {
-    splitChunks: {
-      cacheGroups: {
-        vendors: {
-          test: /[\\/]node_modules[\\/]/,
-          name: 'vendor',
-          chunks: 'all',
-        },
-      },
-    },
-  },
 });
