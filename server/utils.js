@@ -4,7 +4,6 @@ module.exports = (relatedGames, overallReviews, relatedMetaData, price) => {
   // title, release from relatedMetaData
   const result = [];
   let current = 0;
-  // console.log(relatedGames[current].popular_tags);
   while (current <= 6) {
     const dataObj = {
       tags: relatedGames[current].popular_tags,
