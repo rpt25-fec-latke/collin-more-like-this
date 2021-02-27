@@ -5,7 +5,7 @@ import moment from 'moment';
 const MoreLikeModalContainer = styled.div`
   display: ${({ modalDisplay, hoverCount, id }) => { return modalDisplay && (id <= 2 && hoverCount === 0) ? 'block' : 'none'; }};
   position: absolute;
-  top: 1825px;
+  top: 2151px;
   z-index: 5;
   margin-left: ${({ id }) => { return id <= 2 ? '180px' : '-100px'; }};
   padding: 5px 12px 0px 12px;

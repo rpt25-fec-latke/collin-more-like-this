@@ -34,7 +34,7 @@ const ImageCarousel = ({ carouselData }) => {
   return (
     <ImageCarouselContainer>
       <ImageCarouselWrapper>
-        {carouselData.length && carouselData.map((currentGame, i) => (
+        {carouselData.length === 0 ? '' : carouselData.map((currentGame, i) => (
           <Image
             currentGame={currentGame}
             key={i}
