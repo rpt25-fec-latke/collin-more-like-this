@@ -7,9 +7,6 @@ module.exports = merge(common, {
   devServer: {
     contentBase: './client/dist',
     open: true,
-    proxy: {
-      '/': 'http://localhost:3002',
-    },
   },
   module: {
     rules: [
