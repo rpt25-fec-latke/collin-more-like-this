@@ -1,4 +1,4 @@
-# Game Information Carousel & Side Panel
+# More Like This Section
 
 > An information section that includes images from the game, a brief description, tags related to the game and other specs.
 
